@@ -22,6 +22,8 @@ function cargarProductos(url) {
           <h5 class="card-title">${prod.name}</h5>
           <p class="card-text">
             ${prod.description}
+          </p>
+          <p>
             <small class="text-muted">Vendidos hasta el momento: ${prod.soldCount}</small>
           </p>
           </div>
