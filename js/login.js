@@ -1,16 +1,26 @@
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
-document.addEventListener("DOMContentLoaded", function (e) {
-  // localStorage.setItem("loged", false)
+let inputUsuario = document.getElementById("usuario");
+let inputContra = document.getElementById("contra");
+let botonLogin = document.getElementById("btn");
+document.addEventListener("DOMContentLoaded", function (e) {});
+inputUsuario.addEventListener("keyup", (tecla) => {
+  if (tecla.keyCode === 13) {
+    tecla.preventDefault();
+    botonLogin.click();
+  }
+});
+inputContra.addEventListener("keyup", (tecla) => {
+  if (tecla.keyCode === 13) {
+    tecla.preventDefault();
+    botonLogin.click();
+  }
 });
 
-function chequearLogin(button) {
-  let inputUsuario = document.getElementById("usuario");
-  let inputContra = document.getElementById("contra");
+function chequearLogin() {
   let loged = false;
   if ((inputUsuario.value == "") & (inputContra.value == "")) {
-    // console.log("usuario y contraseña vacios");
     // Cambio la clase de los input para cambiar color a rojo
     // Cambio el placeholder para mostrar al usuario que tiene que hacer
     inputUsuario.classList.add("alert-danger");
