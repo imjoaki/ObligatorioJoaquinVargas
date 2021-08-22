@@ -24,11 +24,15 @@ function cargarProductos(url) {
             ${prod.description}
           </p>
           <p>
-            <small class="text-muted">Vendidos hasta el momento: ${prod.soldCount}</small>
+            <small class="text-muted">Vendidos hasta el momento: ${
+              prod.soldCount
+            }</small>
           </p>
           </div>
           <div class="card-footer text-center">
-          <h3>Precio: <span class="badge badge-secondary">${prod.cost} ${prod.currency}</span></h3>
+          <h3>Precio: <span class="badge badge-secondary">${prod.cost.toLocaleString()} ${
+          prod.currency
+        }</span></h3>
           </div>
           <a href="#" class="btn btn-primary m-1">Go somewhere</a>
       </div>`;
