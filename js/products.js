@@ -1,5 +1,6 @@
 const PRODUCTS_URL =
   "https://japdevdep.github.io/ecommerce-api/product/all.json";
+
 //Entregable 2
 //filtrar productos deacuerdo al rango selecionado
 //Creo un array de objetos con los productos para poder manipular mas facilmente el orden
@@ -7,12 +8,14 @@ let prodArray = [];
 let currentArray = [];
 let inputMin = document.getElementById("inputMin");
 let inputMax = document.getElementById("inputMax");
+
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function (e) {
   cargarProductos(PRODUCTS_URL);
 });
+
 
 ///////////////////////////////////////////////////////EN DONDE ESTOY//////////////////////////////////////////////////////////////////
 function filtrarPorPrecio() {
@@ -39,8 +42,6 @@ function filtrarPorPrecio() {
   } else {
     mostrarNuevo(prodArray);
   }
-
-  // mostrarNuevo(filtradosPorPrecio);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -109,11 +110,16 @@ function mostrarNuevo(array) {
   });
 }
 
+
 function cargarProductos(url) {
+  let lugarProductos = document.getElementById("lugarProductos");
+  let producto = "";
+
   fetch(url)
     .then((respuesta) => respuesta.json())
 
     .then((productos) => {
+
       productos.forEach((prod) => {
         prodArray.push(prod);
         currentArray.push(prod);
