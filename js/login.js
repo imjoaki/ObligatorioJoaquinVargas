@@ -20,6 +20,7 @@ inputContra.addEventListener("keyup", (tecla) => {
 
 function chequearLogin() {
   let loged = false;
+  let usuario = "";
   if ((inputUsuario.value == "") & (inputContra.value == "")) {
     // Cambio la clase de los input para cambiar color a rojo
     // Cambio el placeholder para mostrar al usuario que tiene que hacer
@@ -40,11 +41,11 @@ function chequearLogin() {
     inputContra.placeholder =
       "Por favor ingrese su contraseña para iniciar sesion";
   } else {
+    usuario = inputUsuario.value;
     loged = true;
     window.location.assign("index.html");
   }
-
+  localStorage.setItem("user", usuario);
   localStorage.setItem("loged", loged);
-  console.log(loged);
-  console.log(localStorage.getItem("loged"));
+  console.log(localStorage.getItem("user"));
 }

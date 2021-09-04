@@ -54,5 +54,21 @@ document.addEventListener("DOMContentLoaded", function (e) {
     localStorage.getItem("loged") == undefined
   ) {
     document.location.assign("login.html");
+  } else {
+    mostrarUsuario();
   }
 });
+
+// Agregado de nombre de usuario desde el localStorage
+function mostrarUsuario() {
+  // let lugarDeUsuario = document.getElementById("navbaruser");
+  // let usuario = localStorage.getItem("user");
+  // lugarDeUsuario.innerHTML = usuario;
+  let lugarDeUsuario = document.getElementById("lugar");
+  let usuario = localStorage.getItem("user");
+  let opcionU = document.createElement("a");
+  opcionU.classList.add("py-2", "d-none", "d-md-inline-block");
+  opcionU.setAttribute("href", "index.html");
+  opcionU.innerText = usuario;
+  lugarDeUsuario.appendChild(opcionU);
+}
