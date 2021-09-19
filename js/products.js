@@ -16,8 +16,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
   cargarProductos(PRODUCTS_URL);
 });
 
-
-///////////////////////////////////////////////////////EN DONDE ESTOY//////////////////////////////////////////////////////////////////
 function filtrarPorPrecio() {
   let filtradosPorPrecio = [];
   if (
@@ -43,7 +41,6 @@ function filtrarPorPrecio() {
     mostrarNuevo(prodArray);
   }
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function vaciarRango() {
   inputMin.value = null;
@@ -104,22 +101,27 @@ function mostrarNuevo(array) {
       prod.currency
     }</span></h3>
       </div>
+      <a href="#" class="btn btn-secondary m-1" onclick="guardarAuto('${
+        prod.name
+      }')">
+            Detalles
+            </a>
       <a href="#" class="btn btn-primary m-1">Comprar</a>
   </div>`;
     lugarProductos.innerHTML += producto;
   });
 }
 
+function guardarAuto(auto) {
+  localStorage.setItem("auto", auto);
+  window.location.assign("product-info.html");
+}
 
 function cargarProductos(url) {
-  let lugarProductos = document.getElementById("lugarProductos");
-  let producto = "";
-
   fetch(url)
     .then((respuesta) => respuesta.json())
 
     .then((productos) => {
-
       productos.forEach((prod) => {
         prodArray.push(prod);
         currentArray.push(prod);
