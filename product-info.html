@@ -36,8 +36,13 @@
   <body>
     <nav class="site-header sticky-top py-1 bg-dark">
       <div
-        id="lugar"
-        class="container d-flex flex-column flex-md-row justify-content-between"
+        class="
+          container
+          d-flex
+          flex-column flex-md-row
+          justify-content-between
+          align-items-center
+        "
       >
         <a class="py-2 d-none d-md-inline-block" href="index.html">Inicio</a>
         <a class="py-2 d-none d-md-inline-block" href="categories.html"
@@ -48,6 +53,23 @@
         >
         <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
         <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
+        <div class="dropdown py-2 d-none d-md-inline-block" id="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          ></button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="cart.html">Mi carrito</a>
+            <a class="dropdown-item" href="my-profile.html">Mi perfil</a>
+            <a class="dropdown-item" onclick="cerrarSesion()" href="#"
+              >Cerrar sesión</a
+            >
+          </div>
+        </div>
       </div>
     </nav>
     <!-- LUGAR DE LOS DETALLES DEL PRODUCTO SELECCIONADO -->
@@ -57,7 +79,18 @@
           <i class="bi bi-arrow-left-circle fa-2x"> Volver a Productos </i>
         </a>
       </div>
-      <div id="lugarDetalles"></div>
+      <div id="lugarDetalles">
+        <!-- Lugar de los productos relacionados -->
+        <!-- //////////////HABER QUE PASA//////////////////////// -->
+      </div>
+      <div
+        id="relatedProducts"
+        class="row mx-1 text-center justify-content-around"
+      >
+        <h3 class="h1 col-12 text-center text-white bg-info rounded">
+          Productos Relacionados
+        </h3>
+      </div>
       <hr />
       <!-- LUGAR DE LOS COMENTARIOS SOBRE EL PRODUCTO SELECCIONADO -->
       <div

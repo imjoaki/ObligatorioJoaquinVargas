@@ -5,34 +5,73 @@ const PRODUCT_INFO_URL =
   "https://japdevdep.github.io/ecommerce-api/product/5678.json";
 const PRODUCT_INFO_COMMENTS_URL =
   "https://japdevdep.github.io/ecommerce-api/product/5678-comments.json";
+const PRODUCTS_URL =
+  "https://japdevdep.github.io/ecommerce-api/product/all.json";
 let auto = localStorage.getItem("auto");
 
 document.addEventListener("DOMContentLoaded", function (e) {
-  cargarProducto(PRODUCT_INFO_URL);
+  cargarProducto(PRODUCT_INFO_URL, localStorage.getItem("auto"));
   cargarComentarios(PRODUCT_INFO_COMMENTS_URL);
 });
 
-function cargarProducto(url) {
+function cargarProducto(url, auto) {
   fetch(url)
     .then((respuesta) => respuesta.json())
 
     .then((producto) => {
-      if (producto.name == localStorage.getItem("auto")) {
+      if (producto.name == auto) {
         mostrarDetalle(producto);
+        cargarRelacionados(PRODUCTS_URL, producto.relatedProducts);
       } else {
         mostrarMensaje(
           "No hay detalles para el auto seleccionado!",
-          "detalles"
+          "lugarDetalles"
+        );
+        mostrarMensaje(
+          "No hay Productos Relacionados para el auto seleccionado!",
+          "relatedProducts"
         );
       }
     })
     .catch((error) => alert("Hubo un error: " + error));
 }
+// Entrega 4
+function cargarRelacionados(url, relatedProducts) {
+  fetch(url)
+    .then((respuesta) => respuesta.json())
+    .then((productos) => {
+      relatedProducts.forEach((relacionado) => {
+        mostrarRelacionados(productos[relacionado]);
+      });
+    })
+    .catch((error) => alert("Hubo un error: " + error));
+}
+
+// Entrega 4
+function mostrarRelacionados(productoRelacionado) {
+  let lugarRelacionados = document.getElementById("relatedProducts");
+  let relacionado = "";
+  relacionado = `<div class="card col-5 mb-3">
+  <img src="${productoRelacionado.imgSrc}" class="card-img-top" alt="${productoRelacionado.name}" />
+  <div class="card-body">
+    <h4 class="card-title text-white bg-info rounded">${productoRelacionado.name}</h4>
+    <p class="card-text">
+      ${productoRelacionado.description}
+    </p>
+    <p class="card-text">
+      <small class="text-muted">${productoRelacionado.soldCount} vendidos</small>
+    </p>
+    <span class="badge badge-info fa-lg">${productoRelacionado.currency} ${productoRelacionado.cost}</span>
+    <br />
+    <button class="btn btn-dark mt-2 px-5">Comprar</button>
+  </div>
+</div>`;
+  lugarRelacionados.innerHTML += relacionado;
+}
 
 function mostrarDetalle(producto) {
   let dProduct = "";
   let lugarDetalles = document.getElementById("lugarDetalles");
-  // console.log(producto.soldCount);
 
   dProduct = `<div class="card border-dark text-center my-2">
   <div class="card-body">
@@ -133,19 +172,10 @@ function mostrarDetalle(producto) {
 }
 
 function cargarComentarios(url) {
-  console.log(localStorage.getItem("auto"));
   fetch(url)
     .then((respuesta) => respuesta.json())
-
     .then((comentarios) => {
-      if (!(comentarios.length <= 0)) {
-        mostrarComentarios(comentarios);
-      } else {
-        mostrarMensaje(
-          "No hay comentarios para el auto seleccionado!",
-          "comentarios"
-        );
-      }
+      mostrarComentarios(comentarios);
     })
     .catch((error) => alert("Hubo un error: " + error));
 }
@@ -172,9 +202,24 @@ function mostrarComentarios(comentarios) {
     lugarComentarios.innerHTML += comment;
   });
 }
+
+function enviarComent() {
+  let arrayPuntajes = Array.from(
+    document.getElementsByClassName("form-check-input")
+  );
+  let coment = document.getElementById("inputComentario");
+  let usuario = document.getElementById("inputUsuario");
+
+  arrayPuntajes.forEach((checkBox) => {
+    if (checkBox.checked == true) {
+      checkBox.checked = false;
+    }
+  });
+  coment.value = "";
+  usuario.value = "";
+}
 // funcion para mostrar estrellas segun puntaje del 1-5 con default de 0 estrellas
 function mostrarEstrellas(puntaje) {
-  // console.log(puntaje);
   let cantEstrellas = "";
   switch (puntaje.toString()) {
     case "1":
@@ -236,30 +281,9 @@ function mostrarEstrellas(puntaje) {
 }
 
 function mostrarMensaje(mensaje, lugar) {
-  let lugarMensaje;
-  if (lugar == "detalles") {
-    lugarMensaje = document.getElementById("lugarDetalles");
-  } else if (lugar == "comentarios") {
-    lugarMensaje = document.getElementById("lugarComentarios");
-  }
+  let lugarMensaje = document.getElementById(lugar);
   lugarMensaje.innerHTML = `
-                  <h1 class="display-5 text-center my-5 p-5 border border-danger rounded">
+                  <h1 class="display-5 text-center my-2 p-3 text-white bg-danger border border-dark rounded">
                     ${mensaje}
                   </h1>`;
-}
-
-function enviarComent() {
-  let arrayPuntajes = Array.from(
-    document.getElementsByClassName("form-check-input")
-  );
-  let coment = document.getElementById("inputComentario");
-  let usuario = document.getElementById("inputUsuario");
-
-  arrayPuntajes.forEach((checkBox) => {
-    if (checkBox.checked == true) {
-      checkBox.checked = false;
-    }
-  });
-  coment.value = "";
-  usuario.value = "";
 }
