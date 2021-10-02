@@ -47,7 +47,8 @@ var getJSONData = function (url) {
 document.addEventListener("DOMContentLoaded", function (e) {
   if (
     localStorage.getItem("loged") == false ||
-    localStorage.getItem("loged") == undefined
+    localStorage.getItem("loged") == undefined ||
+    !localStorage.getItem("user") === ""
   ) {
     document.location.assign("login.html");
   } else {
@@ -55,16 +56,23 @@ document.addEventListener("DOMContentLoaded", function (e) {
   }
 });
 
+function cerrarSesion() {
+  localStorage.removeItem("user");
+  localStorage.removeItem("loged");
+  location.reload();
+}
+
 // Agregado de nombre de usuario desde el localStorage
 function mostrarUsuario() {
-  // let lugarDeUsuario = document.getElementById("navbaruser");
-  // let usuario = localStorage.getItem("user");
-  // lugarDeUsuario.innerHTML = usuario;
-  let lugarDeUsuario = document.getElementById("lugar");
+  let lugarDeUsuario = document.getElementById("dropdownMenuButton");
   let usuario = localStorage.getItem("user");
-  let opcionU = document.createElement("a");
-  opcionU.classList.add("py-2", "d-none", "d-md-inline-block");
-  opcionU.setAttribute("href", "index.html");
-  opcionU.innerText = usuario;
-  lugarDeUsuario.appendChild(opcionU);
+  lugarDeUsuario.innerHTML = usuario + " ";
+
+  // let lugarDeUsuario = document.getElementById("lugar");
+  // let usuario = localStorage.getItem("user");
+  // let opcionU = document.createElement("a");
+  // opcionU.classList.add("py-2", "d-none", "d-md-inline-block");
+  // opcionU.setAttribute("href", "index.html");
+  // opcionU.innerText = usuario;
+  // lugarDeUsuario.appendChild(opcionU);
 }
