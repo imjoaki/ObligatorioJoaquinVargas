@@ -37,6 +37,12 @@
       }
     </style>
     <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css"
+      integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7"
+      crossorigin="anonymous"
+    />
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/dropzone.css" rel="stylesheet" />
   </head>
@@ -60,7 +66,6 @@
           >Productos</a
         >
         <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
-        <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
         <div class="dropdown py-2 d-none d-md-inline-block" id="dropdown">
           <button
             class="btn btn-secondary dropdown-toggle"
@@ -80,24 +85,120 @@
         </div>
       </div>
     </nav>
-    <div class="container p-5">
-      <div
-        class="alert alert-danger"
-        role="alert"
-        style="position: relative; width: auto; top: 0"
-      >
-        <h4 class="alert-heading">¡A trabajar! :)</h4>
-        <p>
-          Esta sección corresponde a: Entrega 5 (Fecha de entrega: 17/10/2021) y
-          Entrega 7 (Fecha de entrega: 14/11/2021).
-        </p>
-        <hr />
-        <p class="mb-0">
-          Para saber qué debes hacer, fijate en la actividad en CREA
-          correspondiente a esta entrega.
-        </p>
+    <!-- /////////////////////////////////////////////////////////////////// -->
+    <div class="container">
+      <div class="row my-3">
+        <div class="col-sm-12 col-md-7 col-lg-8 mb-2" id="lugarItems"></div>
+        <div class="col-sm-12 col-md-5 col-lg-4 p-0">
+          <div class="card">
+            <div class="card-header bg-dark text-light text-center">
+              <h5>Informacion de pago</h5>
+            </div>
+            <ul class="list-group list-group-flush" style="font-size: larger">
+              <li class="list-group-item">
+                Subtotal en UYU:
+                <span class="float-right" id="subtotalUyu">Texto</span>
+                <br />
+                <small
+                  class="card-text text-secondary"
+                  style="font-style: italic"
+                >
+                  Subtotal en USD:
+                  <span class="px-2 float-right" id="subtotalUsd">123</span>
+                </small>
+              </li>
+              <li class="list-group-item text-center">
+                <p class="lead m-0">Opciones de envio</p>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                  <label class="btn btn-secondary">
+                    <input
+                      value="S"
+                      type="radio"
+                      name="options"
+                      id="eS"
+                      autocomplete="off"
+                      onchange="calculoEnvio(this.value)"
+                    />
+                    Standar
+                  </label>
+                  <label class="btn btn-warning">
+                    <input
+                      value="E"
+                      type="radio"
+                      name="options"
+                      id="eE"
+                      autocomplete="off"
+                      onchange="calculoEnvio(this.value)"
+                    />
+                    Express
+                  </label>
+                  <label class="btn btn-danger">
+                    <input
+                      value="P"
+                      type="radio"
+                      name="options"
+                      id="eP"
+                      autocomplete="off"
+                      onchange="calculoEnvio(this.value)"
+                    />
+                    Premium
+                  </label>
+                </div>
+                <table
+                  class="table table-striped mt-1"
+                  style="font-size: small"
+                >
+                  <tbody>
+                    <tr class="table-danger">
+                      <td>Premium</td>
+                      <td>2 - 5 dias</td>
+                      <td>15% del subtotal</td>
+                    </tr>
+                    <tr class="table-warning">
+                      <td>Express</td>
+                      <td>5 - 8 dias</td>
+                      <td>7% del subtotal</td>
+                    </tr>
+                    <tr class="table-secondary">
+                      <td>Standar</td>
+                      <td>12 - 15 dias</td>
+                      <td>5% del subtotal</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </li>
+              <li class="list-group-item">
+                <p class="lead m-0">
+                  Costo de envio:
+                  <span class="float-right" id="shippingCost"></span>
+                  <span
+                    class="float-right badge badge-secondary"
+                    id="shippingOption"
+                    >S</span
+                  >
+                </p>
+              </li>
+            </ul>
+            <div class="card-body text-center">
+              <h5 class="card-title border-bottom border-primary mb-3">
+                TOTAL:
+                <span class="py-1 px-2 rounded" id="totalUyu"></span>
+              </h5>
+              <span
+                class="card-text text-secondary border-bottom rounded px-4 py-1"
+                style="font-style: italic"
+              >
+                Total en USD: <span class="px-2" id="totalUsd"></span>
+              </span>
+            </div>
+            <a href="#" class="card-footer bg-dark btn text-light"
+              >Realizar Compra</a
+            >
+          </div>
+        </div>
       </div>
     </div>
+    <!-- ////////////////////////////////////////////////////////////////// -->
     <div id="spinner-wrapper">
       <div class="lds-ring">
         <div></div>
