@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
   if (
     localStorage.getItem("loged") == false ||
     localStorage.getItem("loged") == undefined ||
-    !localStorage.getItem("user") === ""
+    !JSON.parse(localStorage.getItem("userInfo")).nombre === ""
   ) {
     document.location.assign("login.html");
   } else {
