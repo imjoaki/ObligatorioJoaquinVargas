@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 });
 
 function cerrarSesion() {
-  localStorage.removeItem("user");
+  localStorage.removeItem("userInfo");
   localStorage.removeItem("loged");
   location.reload();
 }
@@ -65,7 +65,7 @@ function cerrarSesion() {
 // Agregado de nombre de usuario desde el localStorage
 function mostrarUsuario() {
   let lugarDeUsuario = document.getElementById("dropdownMenuButton");
-  let usuario = localStorage.getItem("user");
+  let usuario = JSON.parse(localStorage.getItem("userInfo")).nombre;
   lugarDeUsuario.innerHTML = usuario + " ";
 
   // let lugarDeUsuario = document.getElementById("lugar");

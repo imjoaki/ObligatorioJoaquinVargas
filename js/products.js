@@ -83,7 +83,9 @@ function mostrarNuevo(array) {
   borrar();
   let producto = "";
   array.forEach((prod) => {
-    producto = `<div class="card m-1">
+    producto = `
+    <div class="col-sm-12 col-lg-6 col-xl-4 ">          
+    <div class="card m-1">
     <img src="${prod.imgSrc}" class="card-img-top" alt="${prod.name}" />
     <div class="card-body">
       <h5 class="card-title">${prod.name}</h5>
@@ -101,13 +103,14 @@ function mostrarNuevo(array) {
       prod.currency
     }</span></h3>
       </div>
-      <a href="#" class="btn btn-secondary m-1" onclick="guardarAuto('${
+      <a href="#" class="btn btn-secondary" onclick="guardarAuto('${
         prod.name
       }')">
             Detalles
             </a>
-      <a href="#" class="btn btn-primary m-1">Comprar</a>
-  </div>`;
+      <a href="#" class="btn btn-primary mt-1">Comprar</a>
+  </div>
+    </div>`;
     lugarProductos.innerHTML += producto;
   });
 }
