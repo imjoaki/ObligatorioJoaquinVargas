@@ -284,7 +284,6 @@ function guardarMetodoPago() {
       }
     }
   } else {
-    console.log("entre al negativo");
     mensajeMetodoPago.classList.replace("alert-success", "alert-danger");
     mensajeMetodoPago.innerHTML = `
     <p class="lead my-auto" style="font-size: larger; font-weight: bold">
@@ -315,13 +314,17 @@ function habilitarCompra(valor) {
       usuario.metodoDePago.ci != "" &&
       usuario.metodoDePago.ci != undefined)
   ) {
-    console.log("entre al if");
-    console.log(document.getElementById("btnMetodoPago").disabled);
     botonCompra.disabled = false;
   } else {
-    console.log("entre al else");
     botonCompra.disabled = true;
   }
 }
 
-function realizarCompra() {}
+function realizarCompra() {
+  let mensajeDeCompra = document.getElementById("comprado");
+  mensajeDeCompra.style.display = "block";
+
+  setTimeout(() => {
+    mensajeDeCompra.style.display = "none";
+  }, 3000);
+}
