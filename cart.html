@@ -88,6 +88,7 @@
     <!-- /////////////////////////////////////////////////////////////////// -->
     <div class="container">
       <div class="row my-3">
+        <div class="alert alert-success">Compra Realizada con exito!</div>
         <div class="col-sm-12 col-md-7 col-lg-8 mb-2" id="lugarItems"></div>
         <div class="col-sm-12 col-md-5 col-lg-4 p-0">
           <div class="card">
@@ -178,6 +179,200 @@
                   >
                 </p>
               </li>
+              <li class="list-group-item">
+                <div class="text-center">
+                  <h5 style="font-size: large">
+                    Por favor llene<strong class="text-danger">
+                      todos los campos</strong
+                    >
+                    antes de seleccionar metodo de pago
+                  </h5>
+                  <!-- Boton para modal -->
+                  <button
+                    type="button"
+                    id="btnMetodoPago"
+                    class="btn btn-info px-5"
+                    data-toggle="modal"
+                    data-target="#metodoPagoModal"
+                    disabled
+                  >
+                    Metodos de Pago
+                  </button>
+                </div>
+
+                <!-- Modal -->
+                <div
+                  class="modal fade"
+                  id="metodoPagoModal"
+                  tabindex="-1"
+                  role="dialog"
+                  aria-labelledby="metodoPagoModalLabel"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header bg-info">
+                        <h5
+                          class="modal-title h4 text-white"
+                          id="metodoPagoModalLabel"
+                        >
+                          Metodo de Pago
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <!-- |||||||||||||||||||||BODY||||||||||||||||||||| -->
+                      <div class="modal-body">
+                        <div
+                          class="alert-danger rounded p-3 mb-2 text-center"
+                          id="tipoPagoMensaje"
+                          style="display: none"
+                        ></div>
+                        <div
+                          class="btn-group btn-group-toggle mx-5"
+                          data-toggle="buttons"
+                        >
+                          <label class="btn btn-warning">
+                            <input
+                              value="credito"
+                              type="radio"
+                              name="tipoPago"
+                              id="pagoC"
+                              autocomplete="off"
+                              onchange="mostrarCamposDePago(this.value)"
+                            />
+                            Tarjeta de Crédito
+                          </label>
+                          <label class="btn btn-secondary">
+                            <input
+                              value="transferencia"
+                              type="radio"
+                              name="tipoPago"
+                              id="pagoT"
+                              autocomplete="off"
+                              onchange="mostrarCamposDePago(this.value)"
+                            />
+                            Transferencia Bancaria
+                          </label>
+                        </div>
+                        <!-- Inputs tarjeta de credito -->
+                        <form
+                          style="display: none"
+                          class="mt-3"
+                          id="camposCredito"
+                        >
+                          <div class="form-group">
+                            <label for="numeroTarjeta">Numero de Tarjeta</label>
+                            <input
+                              type="number"
+                              class="form-control"
+                              onKeyPress="if(this.value.length==16) return false;"
+                              id="numeroTarjeta"
+                              placeholder="XXXX  XXXX  XXXX  XXXX"
+                            />
+                          </div>
+                          <div class="form-group">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="nombreApellido"
+                              placeholder="Nombre y apellido"
+                            />
+                          </div>
+                          <div class="form-group row mx-auto">
+                            <input
+                              type="text"
+                              onfocus="(this.type='date')"
+                              onblur="(this.type='text')"
+                              class="col-7 form-control"
+                              name="fechaDeExpiracion"
+                              placeholder="Fecha de expiracion"
+                              id="fechaE"
+                            />
+                            <input
+                              type="number"
+                              class="col form-control"
+                              onKeyPress="if(this.value.length==3) return false;"
+                              name="codigo"
+                              id="codigo"
+                              placeholder="Codigo de seguridad"
+                            />
+                          </div>
+                          <div class="form-group">
+                            <input
+                              type="text"
+                              class="form-control"
+                              onKeyPress="if(this.value.length==8) return false;"
+                              name="ciTitular"
+                              id="ci"
+                              placeholder="CI del titular de la tarjeta sin puntos ni guion"
+                            />
+                          </div>
+                          <p
+                            class="text-danger"
+                            style="font-weight: bold; display: none"
+                            id="faltanDatosPago"
+                          >
+                            Por favor ingrese todos los datos
+                          </p>
+                        </form>
+                        <!-- Transferencia bancaria -->
+                        <div
+                          style="display: none"
+                          class="mt-3"
+                          id="camposTransferencia"
+                        >
+                          <h4 class="text-center" style="font-weight: bold">
+                            Realizar una transferencia a la siguiente cuenta
+                          </h4>
+                          <p><strong>Banco:</strong> Santander</p>
+                          <p><strong>Sucursal:</strong> 0099</p>
+                          <p><strong>Numero de Cuenta:</strong> 004284139588</p>
+                          <p>
+                            <strong>Nombre del beneficiario:</strong> Bill Gates
+                          </p>
+                          <p>
+                            En referencia de pago colocar nombre y apellido, en
+                            su caso
+                            <cite><u id="nombreApellidoLocal"></u></cite>
+                          </p>
+                          <p class="lead">
+                            Luego de realizada la transferencia contactarse con
+                            nosotros al correo
+                            <cite class="text-primary"
+                              >nuestroCorreo@algo.com</cite
+                            >
+                          </p>
+                        </div>
+                      </div>
+                      <!-- ||||||||||||||||||||||||FOOTER||||||||||||||||||||||||||| -->
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-dismiss="modal"
+                          id="cerrarModal"
+                        >
+                          Cerrar
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-info"
+                          onclick="guardarMetodoPago()"
+                        >
+                          Guardar metodo de Pago
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
             </ul>
             <div class="card-body text-center">
               <h5 class="card-title border-bottom border-primary mb-3">
@@ -191,9 +386,14 @@
                 Total en USD: <span class="px-2" id="totalUsd"></span>
               </span>
             </div>
-            <a href="#" class="card-footer bg-dark btn text-light"
-              >Realizar Compra</a
+            <button
+              class="card-footer bg-dark btn btn-informative text-light"
+              id="btnComprar"
+              onclick="realizarCompra()"
+              disabled
             >
+              Realizar Compra
+            </button>
           </div>
         </div>
       </div>
@@ -208,6 +408,21 @@
       </div>
     </div>
     <script src="js/jquery-3.4.1.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/dropzone.js"></script>
     <script src="js/init.js"></script>

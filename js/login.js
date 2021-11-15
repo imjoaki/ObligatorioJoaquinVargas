@@ -26,6 +26,7 @@ function chequearLogin() {
     edad: "",
     email: "",
     celular: "",
+    metodoDePago: {},
   };
   if ((inputUsuario.value == "") & (inputContra.value == "")) {
     // Cambio la clase de los input para cambiar color a rojo
