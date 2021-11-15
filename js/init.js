@@ -67,12 +67,4 @@ function mostrarUsuario() {
   let lugarDeUsuario = document.getElementById("dropdownMenuButton");
   let usuario = JSON.parse(localStorage.getItem("userInfo")).nombre;
   lugarDeUsuario.innerHTML = usuario + " ";
-
-  // let lugarDeUsuario = document.getElementById("lugar");
-  // let usuario = localStorage.getItem("user");
-  // let opcionU = document.createElement("a");
-  // opcionU.classList.add("py-2", "d-none", "d-md-inline-block");
-  // opcionU.setAttribute("href", "index.html");
-  // opcionU.innerText = usuario;
-  // lugarDeUsuario.appendChild(opcionU);
 }
