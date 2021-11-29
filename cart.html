@@ -45,6 +45,10 @@
     />
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/dropzone.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
 
   <body>
@@ -95,7 +99,74 @@
         >
           <h3>Compra realizada exitosamente!</h3>
         </div>
-        <div class="col-sm-12 col-md-7 col-lg-8 mb-2" id="lugarItems"></div>
+        <form class="card p-0 form-group col-12">
+          <h4 class="card-header bg-dark text-white text-center">
+            Dirección de Envío
+          </h4>
+          <div class="row px-3">
+            <label for="nombre" class="col-6"
+              >Nombre completo del receptor
+            </label>
+            <label for="cedula" class="col-6">Cedula del receptor</label>
+            <input
+              type="text"
+              name="nombre"
+              id="dirNombre"
+              placeholder="Juan Rodirguez López"
+              class="mx-2 col w-50 form-control d-inline"
+            />
+            <input
+              type="text"
+              name="cedula"
+              id="dirCedula"
+              placeholder="1.234.567-8"
+              class="mx-2 col w-50 form-control d-inline"
+            />
+          </div>
+          <div class="row px-3 py-3">
+            <label for="direccion" class="col-6">Direcion de entrega</label>
+            <label for="celular" class="col-6">Celular</label>
+            <input
+              type="text"
+              name="direccion"
+              id="dirDireccion"
+              placeholder="Av. Las americas 7882"
+              class="m-2 col w-50 form-control d-inline"
+            />
+            <input
+              type="text"
+              name="celular"
+              id="dirCelular"
+              placeholder="XXX XXX XXX"
+              class="m-2 col w-50 form-control d-inline"
+            />
+          </div>
+          <div class="row px-3">
+            <label for="departamento" class="col-6">Departamento</label>
+            <label for="pais" class="col-6">Pais</label>
+            <input
+              type="text"
+              name="departamento"
+              id="dirDepartamento"
+              placeholder="Artigas"
+              class="m-2 col w-50 form-control d-inline"
+            />
+            <input
+              type="text"
+              name="pais"
+              id="dirPais"
+              placeholder="Uruguay"
+              class="m-2 col w-50 form-control d-inline"
+            />
+          </div>
+          <button class="btn card-footer bg-dark text-white" type="button">
+            Guardar datos de envio
+          </button>
+        </form>
+        <div
+          class="col-sm-12 col-md-7 col-lg-8 mb-2 p-0 pr-3"
+          id="lugarItems"
+        ></div>
         <div class="col-sm-12 col-md-5 col-lg-4 p-0">
           <div class="card">
             <div class="card-header bg-dark text-light text-center">

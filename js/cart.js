@@ -3,7 +3,7 @@
 //elementos HTML presentes.
 const CART_DESAFIO_URL =
   "https://japdevdep.github.io/ecommerce-api/cart/654.json";
-let cacarritoArray = [];
+let carritoArray = [];
 let subtotalesPorNombre = new Map();
 let totalesPorNombre = new Map();
 let subtotalesUyu = [];
@@ -25,9 +25,9 @@ function cargarCarrito(url) {
 
     .then((carritoFetch) => {
       carritoFetch.articles.forEach((item) => {
-        cacarritoArray.push(item);
+        carritoArray.push(item);
       });
-      mostrarCarrito(cacarritoArray);
+      mostrarCarrito(carritoArray);
     })
     .catch((error) => alert("Hubo un error: " + error));
 }
@@ -36,6 +36,8 @@ function mostrarCarrito(array) {
   let item = "";
   let lugarItems = document.getElementById("lugarItems");
   let costEnUyu;
+  lugarItems.innerHTML = "";
+  subtotalesPorNombre.clear();
   array.forEach((elemento) => {
     // -------------------------------------- //
     if (elemento.currency == "USD") {
@@ -44,13 +46,15 @@ function mostrarCarrito(array) {
       costEnUyu = elemento.unitCost;
     }
     subtotalesPorNombre.set(elemento.name.replace(/\s/g, ""), costEnUyu);
+    let idElemento = elemento.name.replace(/\s/g, "");
     // -------------------------------------- //
     item = `
-    <div class="list-group-item list-group-item-action">
+    <div class="list-group-item" id="${idElemento}">
       <div class="row align-items-center">
-        <h4 class="col-12 mb-1 bg-primary py-1 rounded text-light text-center">${
-          elemento.name
-        }</h4>
+        <div class="col-12 mb-1 bg-primary py-1 rounded text-light text-center">  
+          <h4 class="d-inline">${elemento.name}</h4>
+          <button class="d-inline btn float-right py-2" onclick="borrarItem(this)" id="boton${idElemento}"> <i class="fa fa-trash" style="font-size: large;"></i></button>
+        </div>
         <div class="col-md-12 col-xl-4 text-center">
           <img
             src="${elemento.src}"
@@ -72,7 +76,7 @@ function mostrarCarrito(array) {
               <input
                 type="number"
                 class="form-control align-items-center border-dark"
-                id="cantidad${elemento.name.replace(/\s/g, "")}"
+                id="cantidad${idElemento}"
                 value="${elemento.count}"
                 style="text-align: center"
                 min="0"
@@ -82,15 +86,11 @@ function mostrarCarrito(array) {
             </div>
             <div class="col-sm-12 pl-1 pr-0 mt-2 text-center">
                 <h3 class="h3 mb-2 border-bottom">Precio total</h3>
-                <h5 class="d-inline" id="totalUy${elemento.name.replace(
-                  /\s/g,
-                  ""
-                )}">$ ${(elemento.count * costEnUyu).toLocaleString()}</h5>
+                <h5 class="d-inline" id="totalUy${idElemento}">$ ${(
+      elemento.count * costEnUyu
+    ).toLocaleString()}</h5>
                 <h5 class="mb-1 d-inline"">~</h5>
-                <h5 class="mb-1 d-inline" id="totalUsd${elemento.name.replace(
-                  /\s/g,
-                  ""
-                )}"> ${(
+                <h5 class="mb-1 d-inline" id="totalUsd${idElemento}"> ${(
       (costEnUyu * elemento.count) /
       40
     ).toLocaleString()}</h5>
@@ -102,9 +102,28 @@ function mostrarCarrito(array) {
   calcularSubtotales(subtotalesPorNombre);
 }
 
+function borrarItem(botonItem) {
+  console.log(botonItem.id.replace("boton", ""));
+  document.getElementById(botonItem.id.replace("boton", "")).remove();
+  let indexItem;
+
+  carritoArray.forEach((item) => {
+    if (item.name.replace(/\s/g, "") == botonItem.id.replace("boton", "")) {
+      indexItem = carritoArray.indexOf(item);
+      console.log("entre al if");
+      console.log(indexItem);
+      carritoArray.splice(indexItem, 1);
+    } else {
+      console.log("NO entre al if");
+    }
+  });
+  mostrarCarrito(carritoArray);
+}
+
 function calcularSubtotales(mapaSubtotales) {
   totalUyu = 0;
   subtotalItem = 0;
+  totalesPorNombre.clear();
   for (const [nombre, subtotal] of mapaSubtotales) {
     totalesPorNombre.set(
       nombre,
