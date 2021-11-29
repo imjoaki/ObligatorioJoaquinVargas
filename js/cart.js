@@ -240,6 +240,77 @@ function mostrarCamposDePago(metodoDePago) {
   }
 }
 
+function chequearDireccionEnvio() {
+  let dirMap = new Map();
+  let dirNombre = document.getElementById("dirNombre");
+  let dirCedula = document.getElementById("dirCedula");
+  let dirDireccion = document.getElementById("dirDireccion");
+  let dirCelular = document.getElementById("dirCelular");
+  let dirDepartamento = document.getElementById("dirDepartamento");
+  let dirPais = document.getElementById("dirPais");
+  let contadorVacios = 0;
+  let mensajeFail = document.getElementById("dirVacios");
+  let mensajeOk = document.getElementById("dirGuardada");
+  dirMap.set(dirNombre.name, dirNombre);
+  dirMap.set(dirCedula.name, dirCedula);
+  dirMap.set(dirDireccion.name, dirDireccion);
+  dirMap.set(dirCelular.name, dirCelular);
+  dirMap.set(dirDepartamento.name, dirDepartamento);
+  dirMap.set(dirPais.name, dirPais);
+
+  for (const [nombre, input] of dirMap) {
+    if (input.value == "" || input.value == undefined) {
+      input.classList.add("alert-danger");
+      input.classList.remove("alert-success");
+      contadorVacios++;
+    } else {
+      input.classList.add("alert-success");
+      input.classList.remove("alert-danger");
+    }
+  }
+
+  if (contadorVacios == 0) {
+    guardarDireccionEnvio();
+    mensajeFail.style.display = "none";
+    mensajeOk.style.display = "block";
+    setTimeout(() => {
+      mensajeOk.style.display = "none";
+    }, 3000);
+  } else {
+    mensajeFail.style.display = "block";
+    mensajeOk.style.display = "none";
+  }
+}
+
+function guardarDireccionEnvio() {
+  let dirNombre = document.getElementById("dirNombre").value;
+  let dirCedula = document.getElementById("dirCedula").value;
+  let dirDireccion = document.getElementById("dirDireccion").value;
+  let dirCelular = document.getElementById("dirCelular").value;
+  let dirDepartamento = document.getElementById("dirDepartamento").value;
+  let dirPais = document.getElementById("dirPais").value;
+  let usuario = JSON.parse(localStorage.getItem("userInfo"));
+  let direccionEnvioNuevo = {
+    nombreDir: "",
+    cedulaDir: "",
+    direccionDir: "",
+    celularDir: "",
+    departamentoDir: "",
+    paisDir: "",
+  };
+
+  direccionEnvioNuevo.nombreDir = dirNombre;
+  direccionEnvioNuevo.cedulaDir = dirCedula;
+  direccionEnvioNuevo.direccionDir = dirDireccion;
+  direccionEnvioNuevo.celularDir = dirCelular;
+  direccionEnvioNuevo.departamentoDir = dirDepartamento;
+  direccionEnvioNuevo.paisDir = dirPais;
+
+  usuario.direccionEnvio = direccionEnvioNuevo;
+  localStorage.setItem("userInfo", JSON.stringify(usuario));
+  habilitarCompra();
+}
+
 function guardarMetodoPago() {
   let tipoDePago = document.querySelector('input[name="tipoPago"]:checked');
   let numeroDeTarjeta = document.getElementById("numeroTarjeta");
@@ -319,21 +390,22 @@ function guardarMetodoPago() {
 function habilitarCompra(valor) {
   let usuario = JSON.parse(localStorage.getItem("userInfo"));
   let botonCompra = document.getElementById("btnComprar");
+  let transferencia = valor;
   if (
-    valor == true ||
-    (document.getElementById("btnMetodoPago").disabled != true &&
-      usuario.metodoDePago.numeroTarjeta != "" &&
-      usuario.metodoDePago.numeroTarjeta != undefined &&
-      usuario.metodoDePago.nombreApellido != "" &&
-      usuario.metodoDePago.nombreApellido != undefined &&
-      usuario.metodoDePago.fechaDeExpiracion != "" &&
-      usuario.metodoDePago.fechaDeExpiracion != undefined &&
-      usuario.metodoDePago.codigoDeSeguridad != "" &&
-      usuario.metodoDePago.codigoDeSeguridad != undefined &&
-      usuario.metodoDePago.ci != "" &&
-      usuario.metodoDePago.ci != undefined)
+    Object.values(usuario.direccionEnvio).length > 0 &&
+    (Object.values(usuario.metodoDePago).length > 0 || transferencia == true)
   ) {
-    botonCompra.disabled = false;
+    if (
+      Object.values(usuario.direccionEnvio).every(
+        (element) => element !== ""
+      ) &&
+      (Object.values(usuario.metodoDePago).every((element) => element !== "") ||
+        transferencia == true)
+    ) {
+      botonCompra.disabled = false;
+    } else {
+      botonCompra.disabled = true;
+    }
   } else {
     botonCompra.disabled = true;
   }
