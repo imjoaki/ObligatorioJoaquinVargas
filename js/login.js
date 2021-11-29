@@ -26,6 +26,7 @@ function chequearLogin() {
     edad: "",
     email: "",
     celular: "",
+    direccionEnvio: {},
     metodoDePago: {},
   };
   if ((inputUsuario.value == "") & (inputContra.value == "")) {

@@ -103,63 +103,81 @@
           <h4 class="card-header bg-dark text-white text-center">
             Dirección de Envío
           </h4>
+          <div
+            class="card-header bg-danger text-center"
+            style="display: none"
+            id="dirVacios"
+          >
+            <h1>Llene todos los datos de envio por favor!</h1>
+          </div>
+          <div
+            class="card-header bg-success text-center"
+            style="display: none"
+            id="dirGuardada"
+          >
+            <h1>Direccion de envio guardada exitosamente!</h1>
+          </div>
           <div class="row px-3">
-            <label for="nombre" class="col-6"
+            <label for="dirNombre" class="col-6"
               >Nombre completo del receptor
             </label>
-            <label for="cedula" class="col-6">Cedula del receptor</label>
+            <label for="dirCedula" class="col-6">Cedula del receptor</label>
             <input
               type="text"
-              name="nombre"
+              name="dirNombre"
               id="dirNombre"
               placeholder="Juan Rodirguez López"
               class="mx-2 col w-50 form-control d-inline"
             />
             <input
               type="text"
-              name="cedula"
+              name="dirCedula"
               id="dirCedula"
               placeholder="1.234.567-8"
               class="mx-2 col w-50 form-control d-inline"
             />
           </div>
           <div class="row px-3 py-3">
-            <label for="direccion" class="col-6">Direcion de entrega</label>
-            <label for="celular" class="col-6">Celular</label>
+            <label for="dirDireccion" class="col-6">Direcion de entrega</label>
+            <label for="dirCelular" class="col-6">Celular</label>
             <input
               type="text"
-              name="direccion"
+              name="dirDireccion"
               id="dirDireccion"
               placeholder="Av. Las americas 7882"
               class="m-2 col w-50 form-control d-inline"
             />
             <input
               type="text"
-              name="celular"
+              name="dirCelular"
               id="dirCelular"
               placeholder="XXX XXX XXX"
               class="m-2 col w-50 form-control d-inline"
             />
           </div>
           <div class="row px-3">
-            <label for="departamento" class="col-6">Departamento</label>
-            <label for="pais" class="col-6">Pais</label>
+            <label for="dirDepartamento" class="col-6">Departamento</label>
+            <label for="dirPais" class="col-6">Pais</label>
             <input
               type="text"
-              name="departamento"
+              name="dirDepartamento"
               id="dirDepartamento"
               placeholder="Artigas"
               class="m-2 col w-50 form-control d-inline"
             />
             <input
               type="text"
-              name="pais"
+              name="dirPais"
               id="dirPais"
               placeholder="Uruguay"
               class="m-2 col w-50 form-control d-inline"
             />
           </div>
-          <button class="btn card-footer bg-dark text-white" type="button">
+          <button
+            class="btn card-footer bg-dark text-white"
+            type="button"
+            onclick="chequearDireccionEnvio()"
+          >
             Guardar datos de envio
           </button>
         </form>
